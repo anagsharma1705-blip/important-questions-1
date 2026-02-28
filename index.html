@@ -120,6 +120,10 @@ function showSuspense() {
     document.getElementById("q2").style.display = "none";
     let suspense = document.getElementById("suspense");
     suspense.style.display = "block";
+
+    // Force mobile browser to render suspense div
+    suspense.offsetHeight;
+
     let text = document.getElementById("suspenseText");
     text.innerHTML = "But wait...";
 
