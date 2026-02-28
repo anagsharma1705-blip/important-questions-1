@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Important Questions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #1a1a2e, #0f3460);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .glow-box {
+            margin-top: 100px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 0 40px #ff4da6;
+            animation: glow 2s infinite alternate;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-weight: 400;
+            font-size: 2rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 8px;
+            border-radius: 25px;
+            border: none;
+            background: #ff4da6;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: #ff99cc;
+        }
+
+        .no-btn {
+            background-color: #444;
+        }
+
+        .heart {
+            position: fixed;
+            top: -10vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0px) rotate(0deg); opacity:1; }
+            100% { transform: translateY(110vh) translateX(var(--drift)) rotate(var(--rotate)); opacity:0; }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #ff4da6; }
+            to { box-shadow: 0 0 60px #ff99cc; }
+        }
+
+        @media (max-width: 600px) {
+            .glow-box { margin-top: 50px; padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            .btn { font-size: 14px; padding: 8px 16px; margin: 6px 4px; }
+            .heart { font-size: 18px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glow-box">
+
+    <div id="q1">
+        <h1>Will you go on a date with me? 💫</h1>
+        <button class="btn" onclick="showQ2()">Yes</button>
+        <button class="btn no-btn" onmouseover="moveButton(this)">No</button>
+    </div>
+
+    <div id="q2" style="display:none;">
+        <h1>Where should we go on our date? ✨</h1>
+        <button class="btn" onclick="showQ3()">Romantic Dinner 🍽️</button>
+        <button class="btn" onclick="showQ3()">Beach Walk 🌊</button>
+        <button class="btn" onclick="showQ3()">Movie Night 🎬</button>
+    </div>
+
+    <div id="q3" style="display:none;">
+        <h1>Do you love me? ❤️</h1>
+        <button class="btn" onclick="loveYes()">Yes</button>
+        <button class="btn no-btn" onclick="loveNo()">No</button>
+        <br><br>
+        <img id="cryingCat" src="crying-cat.gif" width="250" style="display:none; margin-top:20px;">
+    </div>
+
+</div>
+
+<script>
+function showQ2() {
+    document.getElementById("q1").style.display = "none";
+    document.getElementById("q2").style.display = "block";
+    heartShower();
+}
+
+function showQ3() {
+    document.getElementById("q2").style.display = "none";
+    document.getElementById("q3").style.display = "block";
+}
+
+function loveYes() {
+    heartShower();
+    setTimeout(() => { 
+        alert("I love you too! 💖");
+        resetFlow();
+    }, 1000);
+}
+
+function loveNo() {
+    let cat = document.getElementById("cryingCat");
+    cat.style.display = "block";
+    setTimeout(() => { cat.style.display = "none"; resetFlow(); }, 2000);
+}
+
+function resetFlow() {
+    document.getElementById("q3").style.display = "none";
+    document.getElementById("q2").style.display = "none";
+    document.getElementById("q1").style.display = "block";
+}
+
+function moveButton(button) {
+    const maxWidth = window.innerWidth - button.offsetWidth;
+    const maxHeight = window.innerHeight - button.offsetHeight;
+    button.style.position = "absolute";
+    button.style.top = Math.random() * maxHeight + "px";
+    button.style.left = Math.random() * maxWidth + "px";
+}
+
+function heartShower() {
+    for (let i = 0; i < 60; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = ["💖","💘","💕","❤️","💝"][Math.floor(Math.random()*5)];
+        heart.className = "heart";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (Math.random() * 25 + 20) + "px";
+        heart.style.setProperty('--rotate', (Math.random()*360) + 'deg');
+        heart.style.setProperty('--drift', (Math.random()*200 - 100) + 'px');
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        heart.style.animationName = "fall";
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+}
+</script>
+
+</body>
+</html>
