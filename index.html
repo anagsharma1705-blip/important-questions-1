@@ -89,9 +89,14 @@
 
     <div id="q2" style="display:none;">
         <h1>Where should we go on our date? ✨</h1>
-        <button class="btn" onclick="showQ3()">Romantic Dinner 🍽️</button>
-        <button class="btn" onclick="showQ3()">Beach Walk 🌊</button>
-        <button class="btn" onclick="showQ3()">Movie Night 🎬</button>
+        <button class="btn" onclick="showSuspense()">Romantic Dinner 🍽️</button>
+        <button class="btn" onclick="showSuspense()">Beach Walk 🌊</button>
+        <button class="btn" onclick="showSuspense()">Movie Night 🎬</button>
+    </div>
+
+    <!-- Suspense Screen -->
+    <div id="suspense" style="display:none;">
+        <h1 id="suspenseText">Hmmmm...</h1>
     </div>
 
     <div id="q3" style="display:none;">
@@ -111,9 +116,19 @@ function showQ2() {
     heartShower();
 }
 
-function showQ3() {
+function showSuspense() {
     document.getElementById("q2").style.display = "none";
-    document.getElementById("q3").style.display = "block";
+    let suspense = document.getElementById("suspense");
+    suspense.style.display = "block";
+    let text = document.getElementById("suspenseText");
+    text.innerHTML = "But wait...";
+
+    setTimeout(() => { text.innerHTML = "There’s something important..."; }, 1200);
+    setTimeout(() => { text.innerHTML = "I need to know..."; }, 2400);
+    setTimeout(() => {
+        suspense.style.display = "none";
+        document.getElementById("q3").style.display = "block";
+    }, 3800);
 }
 
 function loveYes() {
